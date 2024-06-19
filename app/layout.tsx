@@ -11,7 +11,7 @@ const ibmPlexSerif = IBM_Plex_Serif({
 
 export const metadata: Metadata = {
   title: "Daybridge",
-  description: "Built by AK",
+  description: "Built by AK.",
   icons: {
     icon: "/icons/logo.svg",
   },
