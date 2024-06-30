@@ -103,7 +103,13 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("flowbite/plugin"),
+    require("flowbite/plugin")({
+      charts: true,
+    }),
+  ],
 } satisfies Config;
 
 export default config;
