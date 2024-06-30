@@ -105,7 +105,6 @@ const config = {
   },
   plugins: [
     require("tailwindcss-animate"),
-    require("flowbite/plugin"),
     require("flowbite/plugin")({
       charts: true,
     }),
