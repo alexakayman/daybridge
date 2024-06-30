@@ -46,7 +46,7 @@ const CustomXAxisTick: React.FC<any> = ({ x, y, payload }) => {
 
 const FinanceChart: React.FC = () => {
   return (
-    <div className="w-full h-96">
+    <div className="w-full">
       <h2 className="mb-2">Net Worth</h2>
       <p className="mb-4">{formatAmount(sum)}</p>
       <ResponsiveContainer width="100%" height="100%">
@@ -75,6 +75,7 @@ const FinanceChart: React.FC = () => {
             radius={12}
             barSize={90}
             z-index={1}
+            label={{ position: "top" }}
           />
           <defs>
             <linearGradient

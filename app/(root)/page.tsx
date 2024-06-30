@@ -2,6 +2,8 @@ import React from "react";
 import AnalyticsCardRow from "@/components/analytics/AnalyticsCardRow";
 import Transactions from "@/components/Transactions";
 import FinanceChart from "@/components/charts/FinanceChart";
+import FinancialHealth from "@/components/FinancialHealth";
+import CreditScoreIndicator from "@/components/charts/CreditScore";
 
 const Home = () => {
   const loggedIn = { firstName: "Alexa" };
@@ -29,9 +31,16 @@ const Home = () => {
         </header>
         <div className="flex flex-col gap-0">
           <AnalyticsCardRow />
-          <div className="card">
-            <FinanceChart />
-            <Transactions />
+          <div className="card flex flex-row">
+            <div className="flex flex-col w-9/12 gap-4">
+              <FinanceChart />
+              <Transactions />
+            </div>
+            <div className="flex flex-col">
+              <h2>Financial Health</h2>
+              <CreditScoreIndicator />
+              <FinancialHealth />
+            </div>
           </div>
         </div>
       </div>
