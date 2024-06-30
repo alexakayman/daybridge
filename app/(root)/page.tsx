@@ -30,8 +30,8 @@ const Home = () => {
         <div className="flex flex-col gap-0">
           <AnalyticsCardRow />
           <div className="card">
-            <Transactions />
             <FinanceChart />
+            <Transactions />
           </div>
         </div>
       </div>
