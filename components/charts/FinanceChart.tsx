@@ -22,15 +22,43 @@ const data = [
 ];
 const sum = data.reduce((acc, curr) => acc + curr.amount, 0);
 
+const CustomXAxisTick: React.FC<any> = ({ x, y, payload }) => {
+  return (
+    <g transform={`translate(${x},${y})`}>
+      <rect
+        x="-20"
+        y="0"
+        width="40"
+        height="24"
+        rx="12"
+        ry="12"
+        fill="#292524"
+        stroke="white"
+        strokeWidth="1"
+        z-index={5}
+      />
+      <text x="0" y="16" textAnchor="middle" fill="white" fontSize="12">
+        {payload.value}
+      </text>
+    </g>
+  );
+};
+
 const FinanceChart: React.FC = () => {
   return (
     <div className="w-full h-96">
-      <h2>Net Worth</h2>
+      <h2 className="mb-2">Net Worth</h2>
       <p className="mb-4">{formatAmount(sum)}</p>
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
-          <XAxis dataKey="month" axisLine={false} tickLine={false} />
+          <XAxis
+            dataKey="month"
+            axisLine={false}
+            tickLine={false}
+            tick={<CustomXAxisTick />}
+            interval={0}
+          />
           <YAxis
             axisLine={false}
             tickLine={false}
@@ -46,6 +74,7 @@ const FinanceChart: React.FC = () => {
             fill="url(#gradient)"
             radius={12}
             barSize={90}
+            z-index={1}
           />
           <defs>
             <linearGradient
