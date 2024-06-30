@@ -2,6 +2,7 @@ import React from "react";
 import HeaderBox from "@/components/HeaderBox";
 import TotalBalanceBox from "@/components/TotalBalanceBox";
 import AnalyticsCardRow from "@/components/analytics/AnalyticsCardRow";
+import Transactions from "@/components/Transactions";
 
 const Home = () => {
   const loggedIn = { firstName: "Alexa" };
@@ -30,7 +31,9 @@ const Home = () => {
         </header>
         <div className="flex flex-col gap-0">
           <AnalyticsCardRow />
-          <div className="card"></div>
+          <div className="card">
+            <Transactions />
+          </div>
         </div>
       </div>
     </section>
