@@ -56,7 +56,7 @@ export default function Login({
   };
 
   return (
-    <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
+    <div className="flex-1 flex flex-col h-full w-full px-8 sm:max-w-md justify-center gap-2">
       {/* TODO: get these side by side */}
       <div className="flex flex-row w-full align-middle gap-2">
         <Link
@@ -82,41 +82,49 @@ export default function Login({
         <Image src="/assets/Logo.svg" alt="Daybridge" width="180" height="64" />
       </div>
 
-      <form className="w-full min-w-[100vw] flex flex-col p-12 justify-center items-center gap-12">
-        <div className="card flex flex-col mx-auto grid gap-6 min-w-[300px] max-w-[400px]">
+      <form className="w-full min-w-[100vw] h-full flex flex-col p-12 justify-center items-center gap-12">
+        <div className="card flex flex-col mx-auto grid flex-center gap-6 min-w-[300px] max-w-[400px]">
           <div className="grid gap-2 text-center">
             <h2>Join Daybridge</h2>
             <p className="text-balance text-muted-foreground">
               Start banking for peace of mind.
             </p>
           </div>
+          <div className="flex flex-col w-full gap-4 justify-start">
+            <div>
+              <Label className="text-md" htmlFor="email">
+                Email
+              </Label>
+              <Input name="email" placeholder="you@example.com" required />
+            </div>
+            <div>
+              <Label className="text-md" htmlFor="password">
+                Password
+              </Label>
+              <Input
+                type="password"
+                name="password"
+                placeholder="••••••••"
+                required
+              />
+            </div>
+          </div>
 
-          <Label className="text-md" htmlFor="email">
-            Email
-          </Label>
-          <Input name="email" placeholder="you@example.com" required />
-          <Label className="text-md" htmlFor="password">
-            Password
-          </Label>
-          <Input
-            type="password"
-            name="password"
-            placeholder="••••••••"
-            required
-          />
-          <SubmitButton
-            formAction={signIn}
-            className="w-full bg-slate-900 text-white"
-            pendingText="Signing In..."
-          >
-            Sign In
-          </SubmitButton>
           <SubmitButton
             formAction={signUp}
             className="w-full bg-slate-900 text-white"
             pendingText="Signing Up..."
+            variant="default"
           >
             Sign Up
+          </SubmitButton>
+          <SubmitButton
+            formAction={signIn}
+            className="w-full"
+            pendingText="Signing In..."
+            variant={"outline"}
+          >
+            Sign In
           </SubmitButton>
           {searchParams?.message && (
             <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
