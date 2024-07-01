@@ -26,9 +26,7 @@ export default function Accounts() {
             Year to Date
           </button>
         </header>
-        <div>
-          <PlaidLink variant="primary" />
-        </div>
+        <div>{/* <PlaidLink variant="primary" /> */}</div>
       </div>
     </section>
   );

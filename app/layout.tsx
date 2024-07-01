@@ -1,5 +1,4 @@
 // used for page config
-
 import type { Metadata } from "next";
 import { Inter, IBM_Plex_Serif } from "next/font/google";
 import "./globals.css";
@@ -31,7 +30,12 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${ibmPlexSerif.variable} flex flex-row`}
       >
-        {children}
+        <main className="flex flex-row">
+          <div className="dashboard-main flex flex-col">
+            {/* <AuthButton /> */}
+            {children}
+          </div>
+        </main>
       </body>
     </html>
   );
