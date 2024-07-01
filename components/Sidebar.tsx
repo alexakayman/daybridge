@@ -7,7 +7,7 @@ import Link from "next/link";
 const navLinks = [
   {
     imgURL: "/assets/icons/dashboard.svg", // Update with actual path to SVG or the SVG content itself
-    route: "/dashboard",
+    route: "/",
     label: "Dashboard",
   },
   {
