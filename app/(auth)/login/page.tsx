@@ -82,12 +82,11 @@ export default function Login({
           </svg>{" "}
           Back
         </Link>
-        <Image src="/assets/Logo.svg" alt="Daybridge" width="180" height="64" />
       </div>
 
       <form className="w-full min-w-[100vw] h-full flex flex-col p-12 justify-center items-center gap-12">
         <div className="card flex flex-col mx-auto grid flex-center gap-6 min-w-[300px] max-w-[400px]">
-          <div className="grid gap-2 text-center">
+          <div className="grid gap-2 text-center items-center justify-center">
             <h2>Join Daybridge</h2>
             <p className="text-balance text-muted-foreground">
               Start banking for peace of mind.
