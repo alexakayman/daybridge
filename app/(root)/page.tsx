@@ -31,12 +31,12 @@ const Home = () => {
         </header>
         <div className="flex flex-col gap-0">
           <AnalyticsCardRow />
-          <div className="card flex flex-row gap-12">
+          <div className="card flex flex-row gap-6 align-top items-start">
             <div className="flex flex-col w-9/12 gap-4">
               <FinanceChart />
               <Transactions />
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col align-top h-full">
               <FinancialHealth />
             </div>
           </div>
