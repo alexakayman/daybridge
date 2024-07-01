@@ -1,12 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
+import { signUp } from "@/lib/actions/user.actions";
+
 const SignUp = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSignUp = async () => {
+    const newUser = await signUp({ email, password });
+    setUser(newUser);
+  };
+
   return (
     <div className="w-full min-w-[100vw] flex flex-col p-12 justify-center items-center gap-12">
       <div>
@@ -28,6 +39,7 @@ const SignUp = () => {
               <Input
                 id="email"
                 type="email"
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="m@example.com"
                 required
               />
@@ -42,10 +54,15 @@ const SignUp = () => {
                 className="w-full"
                 id="password"
                 type="password"
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
-            <Button type="submit" className="w-full bg-slate-900 text-white">
+            <Button
+              type="submit"
+              className="w-full bg-slate-900 text-white"
+              onClick={handleSignUp}
+            >
               Get Started
             </Button>
             <Button variant="outline" className="w-full">

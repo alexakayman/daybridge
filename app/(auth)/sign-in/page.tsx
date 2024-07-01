@@ -1,12 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { signIn } from "@/lib/actions/user.actions";
 
 const SignIn = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSignIn = async () => {
+    const response = await signIn({ email, password });
+  };
+
   return (
     <div className="w-full min-w-[100vw] flex flex-col p-12 justify-center items-center gap-12">
       <div>
@@ -30,6 +39,8 @@ const SignIn = () => {
                 type="email"
                 placeholder="m@example.com"
                 required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="grid gap-2 w-full">
@@ -46,10 +57,16 @@ const SignIn = () => {
                 id="password"
                 type="password"
                 required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <Button type="submit" className="w-full bg-slate-900 text-white">
-              Login
+            <Button
+              type="submit"
+              className="w-full bg-slate-900 text-white"
+              onClick={handleSignIn}
+            >
+              Sign Up
             </Button>
             <Button variant="outline" className="w-full">
               Login with Google
