@@ -49,8 +49,8 @@ const AnalyticsCard = ({
 }: AnalyticsCardProps) => {
   return (
     <div className={`analytics-card ${active ? "is-active" : ""}`}>
-      <div className="flex flex-col">
-        <AnimatedCounter className="analytics-amount" amount={amount} />
+      <div className="flex flex-col analytics-amount">
+        <AnimatedCounter amount={amount} />
         <p>{label}</p>
       </div>
       <div className="flex flex-row items-center">
