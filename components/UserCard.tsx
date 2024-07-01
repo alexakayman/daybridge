@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import AuthButton from "./AuthButton";
 
 // eventually integrate auth & user info here
 
@@ -17,7 +18,7 @@ const UserCard = () => {
           />
           <div className="bio-text flex flex-col gap-1">
             <p className="bio-name">Alexa Kayman</p>
-            <p className="bio-email">alexa@kayman.ventures</p>
+            <AuthButton />
           </div>
         </div>
       </div>
