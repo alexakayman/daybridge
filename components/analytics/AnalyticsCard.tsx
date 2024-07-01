@@ -33,6 +33,13 @@ const changeDown = (
   </svg>
 );
 
+interface AnalyticsCardProps {
+  amount: number; // assuming amount is a number
+  label: string;
+  change: number; // assuming change is a number to represent percentage change
+  active: boolean;
+}
+
 const AnalyticsCard = ({
   amount,
   label,

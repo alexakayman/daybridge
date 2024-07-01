@@ -38,7 +38,7 @@ const Home = () => {
             </div>
             <div className="flex flex-col">
               <h2>Financial Health</h2>
-              <CreditScoreIndicator />
+              <CreditScoreIndicator score={750} />
               <FinancialHealth />
             </div>
           </div>

@@ -2,18 +2,14 @@ import React from "react";
 
 interface CreditScoreIndicatorProps {
   score: number;
-  minScore: number;
-  maxScore: number;
 }
 
 const CreditScoreIndicator: React.FC<CreditScoreIndicatorProps> = ({
   score = 850,
-  minScore = 300,
-  maxScore = 850,
 }) => {
   const radius = 80;
   const strokeWidth = 12;
-  const normalizedScore = (score - minScore) / (maxScore - minScore);
+  const normalizedScore = (score - 300) / (850 - score);
   const arc = normalizedScore * Math.PI;
   const circumference = Math.PI * radius;
 
@@ -34,16 +30,17 @@ const CreditScoreIndicator: React.FC<CreditScoreIndicatorProps> = ({
         <path
           d={`M 10 90 A ${radius} ${radius} 0 0 1 170 90`}
           fill="none"
-          stroke="#E0E0E0"
+          stroke={`url(#${gradientId})`}
           strokeWidth={strokeWidth}
+          strokeLinecap="round"
         />
 
         {/* Colored arc */}
         <path
           d={`M 10 90 A ${radius} ${radius} 0 0 1 170 90`}
           fill="none"
-          stroke={`url(#${gradientId})`}
-          strokeWidth={strokeWidth}
+          stroke={"rgba(255, 255, 255, 1)"}
+          strokeWidth={strokeWidth / 2}
           strokeDasharray={circumference}
           strokeDashoffset={circumference * (1 - normalizedScore)}
           strokeLinecap="round"
@@ -54,7 +51,7 @@ const CreditScoreIndicator: React.FC<CreditScoreIndicatorProps> = ({
           x="90"
           y="80"
           textAnchor="middle"
-          fontSize="26"
+          fontSize="24"
           fontWeight="normal"
           fill="#292524"
         >
@@ -62,13 +59,13 @@ const CreditScoreIndicator: React.FC<CreditScoreIndicatorProps> = ({
         </text>
 
         {/* Min score */}
-        <text x="10" y="110" fontSize="12" fill="#9f9693">
-          {minScore}
+        <text x="0" y="110" fontSize="10" fill="#9f9693">
+          300
         </text>
 
         {/* Max score */}
-        <text x="170" y="110" fontSize="12" fill="#9f9693" textAnchor="end">
-          {maxScore}
+        <text x="180" y="110" fontSize="10" fill="#9f9693" textAnchor="end">
+          850
         </text>
       </svg>
     </div>
