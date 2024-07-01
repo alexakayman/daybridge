@@ -54,10 +54,10 @@ header {
   backdrop-filter: blur(12px);
   display: flex;
   width: 100%;
-  min-height: 90vh;
-  padding: 24px 24px 0px 24px;
+  padding: 24px;
   align-items: flex-start;
-  gap: 24px;
+  justify-content: center;
+  place-items: center;
 }
 
 .analytics-card > p {

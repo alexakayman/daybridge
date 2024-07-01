@@ -31,7 +31,7 @@ const Home = () => {
         </header>
         <div className="flex flex-col gap-0">
           <AnalyticsCardRow />
-          <div className="card flex flex-row">
+          <div className="card flex flex-row gap-12">
             <div className="flex flex-col w-9/12 gap-4">
               <FinanceChart />
               <Transactions />
