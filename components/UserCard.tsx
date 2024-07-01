@@ -32,9 +32,9 @@ const UserCard = () => {
           <path
             d="M4.83333 8.83333V10.8333M7.5 8.83333V10.8333M10.1667 8.83333V10.8333M1.5 13.5H13.5M1.5 6.16667H13.5M1.5 4.16667L7.5 1.5L13.5 4.16667M2.16667 6.16667H12.8333V13.5H2.16667V6.16667Z"
             stroke="#F5F5F4"
-            stroke-width="1.33333"
+            strokeWidth="1.33333"
             stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeLinejoin="round"
           />
         </svg>
         Integrations

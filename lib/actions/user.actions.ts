@@ -1,16 +1,16 @@
-"use server";
+async function signUpNewUser() {
+  const { data, error } = await supabase.auth.signUp({
+    email: "example@email.com",
+    password: "example-password",
+    options: {
+      emailRedirectTo: "/",
+    },
+  });
+}
 
-export const signIn = async ({ email, password }: any) => {
-  try {
-  } catch (error) {
-    console.error("Error", error);
-  }
-};
-
-export const signUp = async (userData: SignUpParams) => {
-  try {
-    // create user account
-  } catch (error) {
-    console.error("Error", error);
-  }
-};
+async function signInWithEmail() {
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: "example@email.com",
+    password: "example-password",
+  });
+}
