@@ -8,18 +8,8 @@ const UserCard = () => {
   return (
     <div className="UserCard">
       <div>
-        <div className="bio-content flex flex-row gap-2">
-          <Image
-            className="bio-image"
-            src={"/assets/userheadshot.png"}
-            height={45}
-            width={45}
-            alt="User Profile"
-          />
-          <div className="bio-text flex flex-col gap-1">
-            <p className="bio-name">Alexa Kayman</p>
-            <AuthButton />
-          </div>
+        <div>
+          <AuthButton />
         </div>
       </div>
       <button className="dark-icon">

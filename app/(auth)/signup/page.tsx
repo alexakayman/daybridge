@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export default function Login({
+export default function SignUp({
   searchParams,
 }: {
   searchParams: { message: string };
@@ -30,6 +30,34 @@ export default function Login({
     }
 
     return redirect("/dashboard");
+  };
+
+  const signUp = async (formData: FormData) => {
+    "use server";
+
+    const origin = headers().get("origin");
+    const full_name = formData.get("FullName") as string;
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    const supabase = createClient();
+
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: `${origin}/auth/callback`,
+        data: { full_name },
+      },
+    });
+
+    if (error) {
+      return redirect(
+        `/login?message=Could not authenticate user due to: ${error}`
+      );
+      console.log(error);
+    }
+
+    return redirect("/login?message=Check email to continue sign in process");
   };
 
   return (
@@ -68,6 +96,12 @@ export default function Login({
           </div>
           <div className="flex flex-col w-full gap-4 justify-start">
             <div>
+              <Label className="text-md" htmlFor="FullName">
+                Name
+              </Label>
+              <Input name="FullName" placeholder="Jane Doe" required />
+            </div>
+            <div>
               <Label className="text-md" htmlFor="email">
                 Email
               </Label>
@@ -87,13 +121,14 @@ export default function Login({
           </div>
 
           <SubmitButton
-            formAction={signIn}
+            formAction={signUp}
             className="w-full bg-slate-900 text-white"
-            pendingText="Signing In..."
-            variant={"default"}
+            pendingText="Signing Up..."
+            variant="default"
           >
-            Sign In
+            Sign Up
           </SubmitButton>
+          {/* TODO: Add Google Auth Sign up */}
           {searchParams?.message && (
             <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
               {searchParams.message}
