@@ -62,10 +62,10 @@ const FinanceChart: React.FC = () => {
           <YAxis
             axisLine={false}
             tickLine={false}
-            tickFormatter={(value) => `$${value / 1000}k`}
+            tickFormatter={(value: number) => `$${value / 1000}k`} // Specify type as number
           />
           <Tooltip
-            formatter={(value) => [`${formatAmount(value)}`, "Amount"]}
+            formatter={(value: number) => [`${formatAmount(value)}`, "Amount"]} // Specify type as number
             labelStyle={{ color: "#666" }}
             contentStyle={{ backgroundColor: "#f3f4f6", border: "none" }}
           />
