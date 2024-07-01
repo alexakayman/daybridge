@@ -2,7 +2,7 @@ import React from "react";
 
 const TopNav = () => {
   return (
-    <div className="TopNav">
+    <div className="TopNav p-0 bg-transparent">
       <div className="search-box">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -21,13 +21,6 @@ const TopNav = () => {
         </svg>
         Search
       </div>
-      <nav className="flex flex-row">
-        <button className="button-topnav">Goals</button>
-        <button className="button-topnav is-active">Overview</button>
-        <button className="button-topnav">Cashflow</button>
-        <button className="button-topnav">Planner</button>
-      </nav>
-
       <button className="button-topnav icon">
         <svg
           xmlns="http://www.w3.org/2000/svg"

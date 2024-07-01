@@ -5,12 +5,6 @@ import AnalyticsCardRow from "@/components/analytics/AnalyticsCardRow";
 import Transactions from "@/components/Transactions";
 import FinancialHealth from "@/components/FinancialHealth";
 import FinanceChart from "@/components/charts/FinanceChart";
-import CreditScoreIndicator from "@/components/charts/CreditScore";
-import dynamic from "next/dynamic";
-
-// const FinanceChart = dynamic(() => import("@/components/FinancialHealth"), {
-//   ssr: false,
-// });
 
 const Home = () => {
   return (

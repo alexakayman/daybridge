@@ -1,5 +1,6 @@
 import React from "react";
 import { formatAmount } from "@/lib/utils";
+import AnimatedCounter from "@/components/AnimatedCounter";
 
 const changeUp = (
   <svg
@@ -49,7 +50,7 @@ const AnalyticsCard = ({
   return (
     <div className={`analytics-card ${active ? "is-active" : ""}`}>
       <div className="flex flex-col">
-        <h4 className="analytics-amount">{formatAmount(amount)}</h4>
+        <AnimatedCounter className="analytics-amount" amount={amount} />
         <p>{label}</p>
       </div>
       <div className="flex flex-row items-center">

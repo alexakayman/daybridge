@@ -9,6 +9,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { formatAmount } from "@/lib/utils";
+import AnimatedCounter from "@/components/AnimatedCounter";
 
 const data = [
   { month: "December", amount: 12654.24 },
@@ -47,7 +48,10 @@ const FinanceChart: React.FC = () => {
   return (
     <div className="w-full h-full">
       <h2 className="mb-2">Net Worth</h2>
-      <p className="mb-4">{formatAmount(sum)}</p>
+      <div className="mb-4">
+        <AnimatedCounter amount={sum} />
+      </div>
+
       <ResponsiveContainer width="100%" height="100%" minHeight={350}>
         <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
