@@ -1,23 +1,28 @@
 export const sidebarLinks = [
   {
-    imgURL: "/icons/home.svg",
+    imgURL: "/assets/icons/dashboard.svg", // Update with actual path to SVG or the SVG content itself
     route: "/",
-    label: "Home",
+    label: "Dashboard",
   },
   {
-    imgURL: "/icons/dollar-circle.svg",
-    route: "/my-banks",
-    label: "My Banks",
+    imgURL: "/assets/icons/accounts.svg",
+    route: "/accounts",
+    label: "Accounts",
   },
   {
-    imgURL: "/icons/transaction.svg",
-    route: "/transaction-history",
-    label: "Transaction History",
+    imgURL: "/assets/icons/transactions.svg",
+    route: "/transactions",
+    label: "Transactions",
   },
   {
-    imgURL: "/icons/money-send.svg",
-    route: "/payment-transfer",
-    label: "Transfer Funds",
+    imgURL: "/assets/icons/recurring.svg",
+    route: "/recurring",
+    label: "Recurring",
+  },
+  {
+    imgURL: "/assets/icons/taxes.svg",
+    route: "/taxes",
+    label: "Taxes",
   },
 ];
 

@@ -1,15 +1,9 @@
 import PlaidLink from "@/components/PlaidLink";
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-export default async function Accounts() {
-  const supabase = createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
+export default function Accounts() {
   return (
     <section className="home h-full w-full">
       <div className="home-content">
@@ -33,7 +27,7 @@ export default async function Accounts() {
           </button>
         </header>
         <div>
-          <PlaidLink user={user} variant="primary" />
+          <PlaidLink variant="primary" />
         </div>
       </div>
     </section>
