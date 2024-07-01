@@ -50,6 +50,7 @@ export default function Login({
 
     if (error) {
       return redirect("/login?message=Could not authenticate user");
+      console.log(error);
     }
 
     return redirect("/login?message=Check email to continue sign in process");
