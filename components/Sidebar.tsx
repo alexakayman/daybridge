@@ -44,7 +44,7 @@ const Sidebar = () => {
         />
         <div className="nav-links">
           {navLinks.map((link, index) => (
-            <Link key={index} className="nav-link" href={link.route}>
+            <Link key={index} className={"nav-link"} href={link.route}>
               <Image
                 src={link.imgURL}
                 width={24}

@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import {
   BarChart,
@@ -12,13 +11,13 @@ import {
 import { formatAmount } from "@/lib/utils";
 
 const data = [
-  { month: "Dec", amount: 12654 },
-  { month: "Jan", amount: 14201 },
-  { month: "Feb", amount: 20386 },
-  { month: "Mar", amount: 10893 },
-  { month: "Apr", amount: 13847 },
-  { month: "May", amount: 18402 },
-  { month: "Jun", amount: 11976 },
+  { month: "December", amount: 12654.24 },
+  { month: "January", amount: 14201.57 },
+  { month: "February", amount: 20386.23 },
+  { month: "March", amount: 10893.01 },
+  { month: "April", amount: 13847.53 },
+  { month: "May", amount: 18402.05 },
+  { month: "June", amount: 11976.28 },
 ];
 const sum = data.reduce((acc, curr) => acc + curr.amount, 0);
 
@@ -38,7 +37,7 @@ const CustomXAxisTick: React.FC<any> = ({ x, y, payload }) => {
         z-index={5}
       />
       <text x="0" y="16" textAnchor="middle" fill="white" fontSize="12">
-        {payload.value}
+        {payload.value.substring(0, 3)}
       </text>
     </g>
   );
@@ -46,10 +45,10 @@ const CustomXAxisTick: React.FC<any> = ({ x, y, payload }) => {
 
 const FinanceChart: React.FC = () => {
   return (
-    <div className="w-full">
+    <div className="w-full h-full">
       <h2 className="mb-2">Net Worth</h2>
       <p className="mb-4">{formatAmount(sum)}</p>
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" height="100%" minHeight={350}>
         <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
           <XAxis
@@ -66,8 +65,12 @@ const FinanceChart: React.FC = () => {
           />
           <Tooltip
             formatter={(value: number) => [`${formatAmount(value)}`, "Amount"]} // Specify type as number
-            labelStyle={{ color: "#666" }}
-            contentStyle={{ backgroundColor: "#f3f4f6", border: "none" }}
+            labelStyle={{ color: "#292524" }}
+            contentStyle={{
+              backgroundColor: "#FFF",
+              border: "none",
+              borderRadius: "12px",
+            }}
           />
           <Bar
             dataKey="amount"
@@ -75,7 +78,11 @@ const FinanceChart: React.FC = () => {
             radius={12}
             barSize={90}
             z-index={1}
-            label={{ position: "top" }}
+            label={{
+              position: "top",
+              formatter: (value: number) => formatAmount(value),
+              fontSize: "14px",
+            }}
           />
           <defs>
             <linearGradient

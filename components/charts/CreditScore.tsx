@@ -1,5 +1,4 @@
 import React from "react";
-
 interface CreditScoreIndicatorProps {
   score: number;
 }
@@ -9,15 +8,15 @@ const CreditScoreIndicator: React.FC<CreditScoreIndicatorProps> = ({
 }) => {
   const radius = 80;
   const strokeWidth = 12;
-  const normalizedScore = (score - 300) / (850 - score);
+  const normalizedScore = (score - 300) / (850 - 300);
   const arc = normalizedScore * Math.PI;
   const circumference = Math.PI * radius;
 
   const gradientId = "scoreGradient";
 
   return (
-    <div>
-      <svg className="w-full h-full" viewBox="0 0 180 180">
+    <div className="max-h-56">
+      <svg className="w-full" viewBox="0 0 180 180">
         <defs>
           <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#FF9494" />
@@ -49,7 +48,7 @@ const CreditScoreIndicator: React.FC<CreditScoreIndicatorProps> = ({
         {/* Score text */}
         <text
           x="90"
-          y="80"
+          y="95"
           textAnchor="middle"
           fontSize="24"
           fontWeight="normal"

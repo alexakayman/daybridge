@@ -1,4 +1,6 @@
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   mode: "development",
@@ -7,8 +9,8 @@ module.exports = {
     main: "./src/index.ts",
   },
   output: {
-    path: path.resolve(__dirname, "./dist"),
-    filename: "app-bundle.js", // <--- Will be compiled to this single file
+    path: path.resolve(__dirname, "dist"),
+    filename: "app-bundle.js",
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
@@ -20,5 +22,16 @@ module.exports = {
         loader: "ts-loader",
       },
     ],
+  },
+  plugins: [
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: "src/index.html",
+    }),
+  ],
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+    },
   },
 };
