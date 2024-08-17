@@ -10,6 +10,8 @@ export default async function AuthButton() {
     data: { user },
   } = await supabase.auth.getUser();
 
+  console.log(user);
+
   const signOut = async () => {
     "use server";
 
@@ -21,16 +23,9 @@ export default async function AuthButton() {
   return user ? (
     <div className="bio-text flex flex-row justify-center align-middle items-center gap-1">
       <div className="bio-content flex flex-row gap-2">
-        {/* <Image
-          className="bio-image"
-          src={user?.avatar_url || "/assets/userheadshot.png"}
-          height={45}
-          width={45}
-          alt="User Profile"
-        /> */}
         <div className="bio-text flex flex-row gap-1 justify-center items-start">
           <div className="bio-text flex flex-col gap-1">
-            {/* <p className="bio-name pb-1">{user?.full_name || "You"}</p> */}
+            <p className="bio-name pb-1">{user?.user_metadata.name || "You"}</p>
             <p className="bio-email pb-1">{user.email}</p>
           </div>
           <form action={signOut}>

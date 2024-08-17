@@ -1,5 +1,4 @@
-"use client";
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import {
   PlaidLinkOnSuccess,
@@ -7,48 +6,77 @@ import {
   usePlaidLink,
 } from "react-plaid-link";
 import { useRouter } from "next/navigation";
+import {
+  createLinkToken,
+  exchangePublicToken,
+} from "@/lib/actions/user.actions";
+import Image from "next/image";
 
-export default function PlaidLink({ variant }: PlaidLinkProps) {
-  // const router = useRouter();
-  // const [token, setToken] = useState("");
+const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
+  const router = useRouter();
 
-  // useEffect(() => {
-  //   const getLinkToken = async () => {
-  //     // const data = await createLinkToken(user);
-  //     //   setToken(data?.linkToken)
-  //   };
-  //   getLinkToken();
-  // }, []);
+  const [token, setToken] = useState("");
 
-  // const onSuccess = useCallback<PlaidLinkOnSuccess>(
-  //   async (public_token: string) => {
-  //     //   await exchangePublicToken({
-  //     //     publicToken: public_token,
-  //     //     user,
-  //     //   });
-  //     router.push("/");
-  //   },
-  //   [user]
-  // );
+  useEffect(() => {
+    const getLinkToken = async () => {
+      const data = await createLinkToken(user);
 
-  // const config: PlaidLinkOptions = {
-  //   token,
-  //   onSuccess,
-  // };
+      setToken(data?.linkToken);
+    };
 
-  // const { open, ready } = usePlaidLink(config);
+    getLinkToken();
+  }, [user]);
+
+  const onSuccess = useCallback<PlaidLinkOnSuccess>(
+    async (public_token: string) => {
+      await exchangePublicToken({
+        publicToken: public_token,
+        user,
+      });
+
+      router.push("/");
+    },
+    [user]
+  );
+
+  const config: PlaidLinkOptions = {
+    token,
+    onSuccess,
+  };
+
+  const { open, ready } = usePlaidLink(config);
 
   return (
     <>
       {variant === "primary" ? (
-        <Button onClick={() => open()} disabled={true}>
-          Connect Bank 1
+        <Button onClick={() => open()} disabled={!ready}>
+          Connect bank
         </Button>
       ) : variant === "ghost" ? (
-        <Button>Connect Bank 2</Button>
+        <Button onClick={() => open()} variant="ghost">
+          <Image
+            src="/icons/connect-bank.svg"
+            alt="connect bank"
+            width={24}
+            height={24}
+          />
+          <p className="hiddenl text-[16px] font-semibold text-black-2 xl:block">
+            Connect bank
+          </p>
+        </Button>
       ) : (
-        <Button>Connect Bank 3</Button>
+        <Button onClick={() => open()} className="plaidlink-default">
+          <Image
+            src="/icons/connect-bank.svg"
+            alt="connect bank"
+            width={24}
+            height={24}
+          />
+          <p className="text-[16px] font-semibold text-black-2">Connect bank</p>
+        </Button>
       )}
     </>
   );
-}
+};
+
+export default PlaidLink;
