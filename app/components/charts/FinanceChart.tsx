@@ -48,62 +48,67 @@ const CustomXAxisTick: React.FC<any> = ({ x, y, payload }) => {
 
 const FinanceChart: React.FC = () => {
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-[400px]">
       <h2 className="mb-2">Net Worth</h2>
       <div className="mb-4">
         <AnimatedCounter amount={sum} />
       </div>
 
-      <ResponsiveContainer width="100%" height="100%" minHeight={350}>
-        <BarChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" vertical={false} />
-          <XAxis
-            dataKey="month"
-            axisLine={false}
-            tickLine={false}
-            tick={<CustomXAxisTick />}
-            interval={0}
-          />
-          <YAxis
-            axisLine={false}
-            tickLine={false}
-            tickFormatter={(value: number) => `$${value / 1000}k`} // Specify type as number
-          />
-          <Tooltip
-            formatter={(value: number) => [`${formatAmount(value)}`, "Amount"]} // Specify type as number
-            labelStyle={{ color: "#292524" }}
-            contentStyle={{
-              backgroundColor: "#FFF",
-              border: "none",
-              borderRadius: "12px",
-            }}
-          />
-          <Bar
-            dataKey="amount"
-            fill="url(#gradient)"
-            radius={12}
-            barSize={90}
-            z-index={1}
-            label={{
-              position: "top",
-              formatter: (value: number) => formatAmount(value),
-              fontSize: "14px",
-            }}
-          />
-          <defs>
-            <linearGradient
-              id="gradient"
-              x1="0%"
-              y1="100%"
-              x2="100%"
-              y2="-39.24%"
-            >
-              <stop offset="0%" stopColor="#404248" />
-              <stop offset="112.04%" stopColor="#717683" />
-            </linearGradient>
-          </defs>
-        </BarChart>
-      </ResponsiveContainer>
+      <div className="h-[300px]">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={data}>
+            <CartesianGrid strokeDasharray="3 3" vertical={false} />
+            <XAxis
+              dataKey="month"
+              axisLine={false}
+              tickLine={false}
+              tick={<CustomXAxisTick />}
+              interval={0}
+            />
+            <YAxis
+              axisLine={false}
+              tickLine={false}
+              tickFormatter={(value: number) => `$${value / 1000}k`}
+            />
+            <Tooltip
+              formatter={(value: number) => [
+                `${formatAmount(value)}`,
+                "Amount",
+              ]}
+              labelStyle={{ color: "#292524" }}
+              contentStyle={{
+                backgroundColor: "#FFF",
+                border: "none",
+                borderRadius: "12px",
+              }}
+            />
+            <Bar
+              dataKey="amount"
+              fill="url(#gradient)"
+              radius={12}
+              barSize={90}
+              z-index={1}
+              label={{
+                position: "top",
+                formatter: (value: number) => formatAmount(value),
+                fontSize: "14px",
+              }}
+            />
+            <defs>
+              <linearGradient
+                id="gradient"
+                x1="0%"
+                y1="100%"
+                x2="100%"
+                y2="-39.24%"
+              >
+                <stop offset="0%" stopColor="#404248" />
+                <stop offset="112.04%" stopColor="#717683" />
+              </linearGradient>
+            </defs>
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 };

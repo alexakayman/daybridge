@@ -1,7 +1,16 @@
 // used for auth components
 
-export default function RootLayout({
+export const metadata = {
+  title: "Authentication",
+  description: "Authentication forms built using the components.",
+};
+
+export default function AuthLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  return <main className="h-full min-h-[100vh]">{children}</main>;
+  return (
+    <div className="container relative h-full min-h-[100vh] flex-col items-center justify-center grid lg:max-w-none lg:grid-cols-1 lg:px-0">
+      <main className="h-full w-full">{children}</main>
+    </div>
+  );
 }

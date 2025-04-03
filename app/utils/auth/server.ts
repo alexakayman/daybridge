@@ -1,19 +1,27 @@
 import { cookies } from "next/headers";
 import { verify } from "jsonwebtoken";
 import { prisma } from "@/lib/prisma";
+import { redirect } from "next/navigation";
 
 const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
 
 export async function getServerSession() {
+  console.log("[ServerAuth] Checking server session");
   const cookieStore = cookies();
   const token = cookieStore.get("session")?.value;
 
-  if (!token) return null;
+  if (!token) {
+    console.log("[ServerAuth] No session token found");
+    return null;
+  }
 
   try {
+    console.log("[ServerAuth] Verifying JWT token");
     const decoded = verify(token, JWT_SECRET) as { userId: string };
+    console.log("[ServerAuth] Token verified for user:", decoded.userId);
 
     // Verify session exists in database
+    console.log("[ServerAuth] Checking session in database");
     const session = await prisma.session.findFirst({
       where: {
         token,
@@ -27,6 +35,7 @@ export async function getServerSession() {
     });
 
     if (!session) {
+      console.log("[ServerAuth] Session not found or expired, cleaning up");
       // Clean up expired session
       await prisma.session.deleteMany({
         where: { token },
@@ -34,6 +43,7 @@ export async function getServerSession() {
       return null;
     }
 
+    console.log("[ServerAuth] Valid session found for user:", session.user.id);
     return {
       user: session.user,
       session: {
@@ -42,19 +52,28 @@ export async function getServerSession() {
       },
     };
   } catch (error) {
+    console.error("[ServerAuth] Error verifying session:", error);
     return null;
   }
 }
 
+// Helper function to require authentication for protected routes
 export async function requireAuth() {
   const session = await getServerSession();
+
   if (!session) {
-    throw new Error("Unauthorized");
+    console.log(
+      "[ServerAuth] Authentication required but no valid session found"
+    );
+    redirect("/login?message=Please sign in to access this page");
   }
+
+  console.log("[ServerAuth] User authenticated:", session.user.id);
   return session;
 }
 
-export async function getServerUser() {
+// Helper function to get the current user
+export async function getCurrentUser() {
   const session = await getServerSession();
   return session?.user || null;
 }

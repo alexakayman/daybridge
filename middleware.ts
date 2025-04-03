@@ -1,55 +1,29 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { verify } from "jsonwebtoken";
-import { prisma } from "@/lib/prisma";
-
-const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
 
 export async function middleware(request: NextRequest) {
+  console.log(
+    "[Middleware] Checking authentication for path:",
+    request.nextUrl.pathname
+  );
   const session = request.cookies.get("session");
 
   if (!session) {
+    console.log("[Middleware] No session cookie found");
     return NextResponse.next();
   }
 
-  try {
-    const decoded = verify(session.value, JWT_SECRET) as { userId: string };
+  // In Edge Runtime, we can't verify the JWT token directly
+  // Instead, we'll just check if the session cookie exists
+  // The actual verification will happen in the server components
 
-    // Verify session exists in database and is not expired
-    const dbSession = await prisma.session.findFirst({
-      where: {
-        token: session.value,
-        expiresAt: {
-          gt: new Date(),
-        },
-      },
-    });
-
-    if (!dbSession) {
-      // Invalid or expired session
-      const response = NextResponse.next();
-      response.cookies.delete("session");
-      return response;
-    }
-
-    return NextResponse.next();
-  } catch (error) {
-    // Invalid token
-    const response = NextResponse.next();
-    response.cookies.delete("session");
-    return response;
-  }
+  console.log("[Middleware] Session cookie found, proceeding with request");
+  return NextResponse.next();
 }
 
+// Configure which paths the middleware should run on
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - images - .svg, .png, .jpg, .jpeg, .gif, .webp
-     * Feel free to modify this pattern to include more paths.
-     */
+    // Match all paths except static files, images, etc.
     "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };

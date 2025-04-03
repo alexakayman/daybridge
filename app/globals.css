@@ -376,10 +376,9 @@ header {
   .text-36 {
     @apply text-[36px] leading-[44px];
   }
-
   /* Home */
   .home {
-    @apply no-scrollbar flex w-full flex-row max-xl:max-h-screen max-xl:overflow-y-scroll px-8;
+    @apply no-scrollbar flex w-full flex-row px-8;
   }
 
   .home-content {

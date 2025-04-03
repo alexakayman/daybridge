@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${ibmPlexSerif.variable} flex flex-row`}
+        className={`${inter.variable} ${ibmPlexSerif.variable} min-h-screen`}
       >
         <main className="flex flex-row">
           <div className="dashboard-main flex flex-col">

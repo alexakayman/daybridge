@@ -14,14 +14,20 @@ export default function Login({
   const handleSignIn = async (formData: FormData) => {
     "use server";
 
+    console.log("[Login] Processing sign in request");
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
 
     try {
+      console.log("[Login] Calling signIn function");
       await signIn(email, password);
+      console.log("[Login] Sign in successful, redirecting to dashboard");
       return redirect("/dashboard");
     } catch (error) {
-      return redirect("/login?message=Could not authenticate user");
+      console.error("[Login] Sign in error:", error);
+      const errorMessage =
+        error instanceof Error ? error.message : "Could not authenticate user";
+      return redirect(`/login?message=${encodeURIComponent(errorMessage)}`);
     }
   };
 
@@ -46,12 +52,15 @@ export default function Login({
             className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1"
           >
             <polyline points="15 18 9 12 15 6" />
-          </svg>{" "}
+          </svg>
           Back
         </Link>
       </div>
 
-      <form className="w-full min-w-[100vw] h-full flex flex-col p-12 justify-center items-center gap-12">
+      <form
+        action={handleSignIn}
+        className="w-full min-w-[100vw] h-full flex flex-col p-12 justify-center items-center gap-12"
+      >
         <div className="card flex flex-col mx-auto grid flex-center gap-6 min-w-[300px] max-w-[400px]">
           <div className="grid gap-2 text-center items-center justify-center">
             <h2>Join Daybridge</h2>
@@ -80,10 +89,9 @@ export default function Login({
           </div>
 
           <SubmitButton
-            formAction={handleSignIn}
             className="w-full bg-slate-900 text-white"
             pendingText="Signing In..."
-            variant={"default"}
+            variant="default"
           >
             Sign In
           </SubmitButton>

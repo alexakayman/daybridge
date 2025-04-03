@@ -1,8 +1,11 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import UserCard from "./UserCard";
 import Link from "next/link";
-import { sidebarLinks } from "@/constants";
+import { sidebarLinks } from "../../constants";
+import "./Sidebar.css";
 
 const Sidebar = () => {
   return (

@@ -1,6 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import React from "react";
-import AuthButton from "./AuthButton";
+import { AuthButton } from "./AuthButton";
 
 // eventually integrate auth & user info here
 

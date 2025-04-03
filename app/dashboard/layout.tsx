@@ -1,8 +1,5 @@
 // used for primary components
 import Sidebar from "@/components/Sidebar";
-import TopNav from "@/components/TopNav";
-import AuthButton from "@/components/AuthButton";
-import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { requireAuth } from "@/utils/auth/server";
 
