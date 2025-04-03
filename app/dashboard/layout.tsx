@@ -4,29 +4,19 @@ import TopNav from "@/components/TopNav";
 import AuthButton from "@/components/AuthButton";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import { requireAuth } from "@/utils/auth/server";
 
-export default async function RootLayout({
+export default async function DashboardLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
-  const supabase = createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
+}: {
+  children: React.ReactNode;
+}) {
+  try {
+    await requireAuth();
+    return <>{children}</>;
+  } catch (error) {
     return redirect("/login");
   }
-  return (
-    <main className="flex flex-row">
-      <Sidebar />
-      <div className="dashboard-main flex flex-col">
-        <TopNav />
-        {/* <AuthButton /> */}
-        {children}
-      </div>
-    </main>
-  );
 }
 
 // export default async function ProtectedPage() {

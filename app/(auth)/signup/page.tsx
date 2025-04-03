@@ -1,68 +1,33 @@
 import Link from "next/link";
-import { headers } from "next/headers";
-import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import { SubmitButton } from "./submit-button";
-import Image from "next/image";
+import { SubmitButton } from "../login/submit-button";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { signUp } from "@/utils/auth";
 
 export default function SignUp({
   searchParams,
 }: {
   searchParams: { message: string };
 }) {
-  const signIn = async (formData: FormData) => {
+  const handleSignUp = async (formData: FormData) => {
     "use server";
 
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
-    const supabase = createClient();
+    const name = formData.get("name") as string;
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) {
-      return redirect("/login?message=Could not authenticate user");
+    try {
+      await signUp(email, password, name);
+      return redirect("/dashboard");
+    } catch (error) {
+      return redirect("/signup?message=Could not create account");
     }
-
-    return redirect("/dashboard");
-  };
-
-  const signUp = async (formData: FormData) => {
-    "use server";
-
-    const origin = headers().get("origin");
-    const full_name = formData.get("FullName") as string;
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    const supabase = createClient();
-
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${origin}/auth/callback`,
-        data: { full_name },
-      },
-    });
-
-    if (error) {
-      return redirect(
-        `/login?message=Could not authenticate user due to: ${error}`
-      );
-      console.log(error);
-    }
-
-    return redirect("/login?message=Check email to continue sign in process");
   };
 
   return (
     <div className="flex-1 flex flex-col h-full w-full px-8 sm:max-w-md justify-center gap-2">
-      {/* TODO: get these side by side */}
       <div className="flex flex-row w-full align-middle gap-2">
         <Link
           href="/"
@@ -89,17 +54,17 @@ export default function SignUp({
       <form className="w-full min-w-[100vw] h-full flex flex-col p-12 justify-center items-center gap-12">
         <div className="card flex flex-col mx-auto grid flex-center gap-6 min-w-[300px] max-w-[400px]">
           <div className="grid gap-2 text-center items-center justify-center">
-            <h2>Join Daybridge</h2>
+            <h2>Create Account</h2>
             <p className="text-balance text-muted-foreground">
-              Start banking for peace of mind.
+              Join Daybridge today.
             </p>
           </div>
           <div className="flex flex-col w-full gap-4 justify-start">
             <div>
-              <Label className="text-md" htmlFor="FullName">
+              <Label className="text-md" htmlFor="name">
                 Name
               </Label>
-              <Input name="FullName" placeholder="Jane Doe" required />
+              <Input name="name" placeholder="Your Name" required />
             </div>
             <div>
               <Label className="text-md" htmlFor="email">
@@ -121,14 +86,13 @@ export default function SignUp({
           </div>
 
           <SubmitButton
-            formAction={signUp}
+            formAction={handleSignUp}
             className="w-full bg-slate-900 text-white"
-            pendingText="Signing Up..."
-            variant="default"
+            pendingText="Creating Account..."
+            variant={"default"}
           >
             Sign Up
           </SubmitButton>
-          {/* TODO: Add Google Auth Sign up */}
           {searchParams?.message && (
             <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
               {searchParams.message}

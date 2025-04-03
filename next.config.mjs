@@ -1,6 +1,17 @@
 import { withSentryConfig } from "@sentry/nextjs";
+
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  // Ensure proper handling of app directory
+  experimental: {
+    appDir: true,
+  },
+  // Update webpack configuration if needed
+  webpack: (config, { isServer }) => {
+    // Add any necessary webpack configurations
+    return config;
+  },
+};
 
 export default withSentryConfig(nextConfig, {
   // For all available options, see:

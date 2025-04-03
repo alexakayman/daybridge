@@ -1,8 +1,43 @@
-import { type NextRequest } from "next/server";
-import { updateSession } from "@/utils/supabase/middleware";
+import { type NextRequest, NextResponse } from "next/server";
+import { verify } from "jsonwebtoken";
+import { prisma } from "@/lib/prisma";
+
+const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
 
 export async function middleware(request: NextRequest) {
-  return await updateSession(request);
+  const session = request.cookies.get("session");
+
+  if (!session) {
+    return NextResponse.next();
+  }
+
+  try {
+    const decoded = verify(session.value, JWT_SECRET) as { userId: string };
+
+    // Verify session exists in database and is not expired
+    const dbSession = await prisma.session.findFirst({
+      where: {
+        token: session.value,
+        expiresAt: {
+          gt: new Date(),
+        },
+      },
+    });
+
+    if (!dbSession) {
+      // Invalid or expired session
+      const response = NextResponse.next();
+      response.cookies.delete("session");
+      return response;
+    }
+
+    return NextResponse.next();
+  } catch (error) {
+    // Invalid token
+    const response = NextResponse.next();
+    response.cookies.delete("session");
+    return response;
+  }
 }
 
 export const config = {

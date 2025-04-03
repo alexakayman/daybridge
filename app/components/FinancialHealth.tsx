@@ -1,10 +1,16 @@
+"use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CreditScoreIndicator from "./charts/CreditScore";
 import React from "react";
 
-export default function FinancialHealth() {
+interface FinancialHealthProps {
+  // Add any props if needed
+}
+
+export default function FinancialHealth({}: FinancialHealthProps): JSX.Element {
   return (
     <>
       <div>

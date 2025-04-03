@@ -6,6 +6,10 @@ import { Doughnut } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+interface DoughnutChartProps {
+  accounts?: any[]; // You might want to type this more specifically based on your data structure
+}
+
 const DoughnutChart = ({ accounts }: DoughnutChartProps) => {
   const data = {
     datasets: [

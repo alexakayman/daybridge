@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
@@ -19,7 +21,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-export default function Transactions() {
+interface TransactionsProps {
+  // Add any props if needed
+}
+
+export default function Transactions({}: TransactionsProps): JSX.Element {
   return (
     <Card className="border-none shadow-none">
       <CardHeader className="flex flex-row items-center">

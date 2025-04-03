@@ -3,15 +3,15 @@ import AnalyticsCardRow from "@/components/analytics/AnalyticsCardRow";
 import Transactions from "@/components/Transactions";
 import FinancialHealth from "@/components/FinancialHealth";
 import FinanceChart from "@/components/charts/FinanceChart";
-import AuthButton from "@/components/AuthButton";
+import { AuthButton } from "@/components/AuthButton";
 
 export default function Index() {
   return (
     <section className="home flex flex-col">
       <div className="home-content min-w-[95vw]">
-        <header className="flex flex-row justify-between">
-          <div className="flex flex-row gap-4 align-middle items-center">
-            <h1>Demo Overview</h1>
+        <header className="flex flex-row justify-between w-full">
+          <div className="flex flex-row gap-4 align-middle items-center w-full">
+            <h1 className="">Demo Overview</h1>
             <button className="button-timerange">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

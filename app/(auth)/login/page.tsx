@@ -1,35 +1,28 @@
 import Link from "next/link";
-import { headers } from "next/headers";
-import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "./submit-button";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { signIn } from "@/utils/auth";
 
 export default function Login({
   searchParams,
 }: {
   searchParams: { message: string };
 }) {
-  const signIn = async (formData: FormData) => {
+  const handleSignIn = async (formData: FormData) => {
     "use server";
 
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
-    const supabase = createClient();
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) {
+    try {
+      await signIn(email, password);
+      return redirect("/dashboard");
+    } catch (error) {
       return redirect("/login?message=Could not authenticate user");
     }
-
-    return redirect("/dashboard");
   };
 
   return (
@@ -87,7 +80,7 @@ export default function Login({
           </div>
 
           <SubmitButton
-            formAction={signIn}
+            formAction={handleSignIn}
             className="w-full bg-slate-900 text-white"
             pendingText="Signing In..."
             variant={"default"}
